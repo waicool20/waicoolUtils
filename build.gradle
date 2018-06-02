@@ -1,0 +1,89 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) waicoolUtils by waicool20
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
+buildscript {
+    ext.kotlin_version = '1.2.41'
+    ext.jackson_version = '2.9.5'
+    ext.controlsfx_version = '8.40.14'
+    ext.logback_version = '1.2.3'
+    ext.sikulix_version = '1.1.3-SNAPSHOT'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+group 'com.waicool20'
+version '0.0.1'
+
+apply plugin: 'kotlin'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
+    /* Jackson Json */
+
+    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: jackson_version
+    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: jackson_version
+    compileOnly group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: jackson_version
+    compileOnly group: 'com.fasterxml.jackson.module', name: 'jackson-module-kotlin', version: jackson_version
+    compileOnly group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: jackson_version
+
+    /* Logging */
+    compileOnly group: 'ch.qos.logback', name: 'logback-classic', version: logback_version
+
+    /* ControlsFX */
+    compileOnly group: 'org.controlsfx', name: 'controlsfx', version: controlsfx_version
+
+    /* SikuliX */
+    compileOnly(group: "com.sikulix", name: "sikulixapi", version: sikulix_version) {
+        exclude group: "com.sikulix"
+        exclude group: 'com.github.vidstige'
+    }
+
+    /* --- */
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+
+compileKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
+compileTestKotlin {
+    kotlinOptions.jvmTarget = "1.8"
+}
