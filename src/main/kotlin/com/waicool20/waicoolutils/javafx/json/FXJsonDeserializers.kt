@@ -29,8 +29,8 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.waicool20.waicoolutils.javafx.toProperty
 import com.waicool20.waicoolutils.RequiresJacksonJson
+import com.waicool20.waicoolutils.javafx.toProperty
 import javafx.beans.property.ListProperty
 
 
@@ -42,6 +42,6 @@ class ListPropertyDeserializer<T>(vc: Class<T>?) : StdDeserializer<ListProperty<
     constructor() : this(null)
 
     override fun deserialize(parser: JsonParser, ctxt: DeserializationContext): ListProperty<T> {
-        return jacksonObjectMapper().readValue<List<T>>(parser).toProperty()
+        return jacksonObjectMapper().readValue<MutableList<T>>(parser).toProperty()
     }
 }
