@@ -60,5 +60,5 @@ fun ComboBox<Double>.bind(doubleProperty: DoubleProperty, readOnly: Boolean = fa
 
 private fun <T> bind(objectProperty: ObjectProperty<T>, objectProperty1: ObjectProperty<T>, readOnly: Boolean = false) {
     if (readOnly) objectProperty.bind(objectProperty1) else objectProperty.bindBidirectional(objectProperty1)
-    Bindings.objectBindings.getOrPut(objectProperty, { mutableListOf(objectProperty1) })
+    Bindings.objectBindings.getOrPut(objectProperty) { mutableListOf(objectProperty1) }
 }
