@@ -27,16 +27,17 @@ package com.waicool20.waicoolutils.javafx
 import javafx.animation.PauseTransition
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
+import javafx.collections.ListChangeListener
+import javafx.collections.ObservableList
 import javafx.util.Duration
-
-//<editor-fold desc="Extension functions">
 
 private object ListenerTracker {
     val listeners = mutableMapOf<String, ChangeListener<*>>()
+    val listListeners = mutableMapOf<String, ListChangeListener<*>>()
 }
 
 /**
- * Extension function for adding listener with a given name, guaranteed to have only one listener
+ * Extension function for adding a listener with a given name, guaranteed to have only one listener
  * per name.
  *
  * @param name Unique name of listener
@@ -110,4 +111,18 @@ fun ObservableValue<*>.listenDebounced(ms: Long, listener: () -> Unit) {
     }
 }
 
-//</editor-fold>
+/**
+ * Extension function for adding a list listener with a given name, guaranteed to have only one listener
+ * per name.
+ *
+ * @param name Unique name of listener
+ * @param listener Listener, receives ([ListChangeListener.Change])
+ */
+@Suppress("UNCHECKED_CAST")
+fun <T> ObservableList<T>.addListener(name: String, listener: (ListChangeListener.Change<out T>) -> Unit) {
+    (ListenerTracker.listListeners[name] as? ListChangeListener<T>)?.let { removeListener(it) }
+    val changeListener = ListChangeListener(listener)
+    ListenerTracker.listListeners[name] = changeListener
+    addListener(changeListener)
+}
+
