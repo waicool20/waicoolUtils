@@ -24,8 +24,15 @@
 
 package com.waicool20.waicoolutils.controlsfx
 
+import com.waicool20.waicoolutils.RequiresControlsFX
 import org.controlsfx.control.CheckModel
 
+/**
+ * Checks all the given items
+ *
+ * @param items Items to check
+ */
+@RequiresControlsFX
 fun <T> CheckModel<T>.checkAll(items: List<T>) {
     clearChecks()
     if (items.isNotEmpty()) items.forEach { check(it) }

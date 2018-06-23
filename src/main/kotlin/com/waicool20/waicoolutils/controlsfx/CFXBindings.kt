@@ -35,21 +35,27 @@ private object CFXBindings {
 }
 
 /**
- *  Binds a [CheckComboBox] list to the given [ListProperty]
+ * Binds a [CheckComboBox] list to the given [ListProperty]
  *
- *  @param listProperty Binding list
- *  @param readOnly Binding will be unidirectional if true
+ * @param listProperty Binding list
+ * @param readOnly Binding will be unidirectional if true
  */
 @RequiresControlsFX
 fun <T> CheckComboBox<T>.bind(
         listProperty: ListProperty<T>,
         readOnly: Boolean = false,
         onChange: (ListChangeListener.Change<out T>) -> Unit = {}) {
-    CFXBindings.checkComboBoxBindings.also {
-        listBinding?.unbind()
-        it.remove(this)
-        it[this] = CheckComboBoxBinding(this@bind, listProperty, readOnly, onChange)
-    }
+    unbind()
+    CFXBindings.checkComboBoxBindings[this] = CheckComboBoxBinding(this@bind, listProperty, readOnly, onChange)
+}
+
+/**
+ * Unbinds a [CheckComboBox] from any bindings
+ */
+@RequiresControlsFX
+fun CheckComboBox<*>.unbind() {
+    listBinding?.unbind()
+    CFXBindings.checkComboBoxBindings.remove(this)
 }
 
 @RequiresControlsFX
@@ -97,9 +103,11 @@ class CheckComboBoxBinding<T>(
 
     init {
         runLater {
-            checkComboBox.checkModel.checkAll(listProperty)
-            checkComboBox.checkModel.checkedItems.addListener(boxToListListener)
-            if (!readOnly) listProperty.addListener(listToBoxListener)
+            synchronized(this) {
+                checkComboBox.checkModel.checkAll(listProperty)
+                checkComboBox.checkModel.checkedItems.addListener(boxToListListener)
+                if (!readOnly) listProperty.addListener(listToBoxListener)
+            }
         }
     }
 

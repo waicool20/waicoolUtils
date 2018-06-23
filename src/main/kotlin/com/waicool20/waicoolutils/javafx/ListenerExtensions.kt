@@ -37,6 +37,14 @@ private object ListenerTracker {
 }
 
 /**
+ * Removes a listener with a given name
+ */
+@Suppress("UNCHECKED_CAST")
+fun <T> ObservableValue<T>.removeListener(name: String) {
+    (ListenerTracker.listeners[name] as? ChangeListener<T>)?.let { removeListener(it) }
+}
+
+/**
  * Extension function for adding a listener with a given name, guaranteed to have only one listener
  * per name.
  *
@@ -45,7 +53,7 @@ private object ListenerTracker {
  */
 @Suppress("UNCHECKED_CAST")
 fun <T> ObservableValue<T>.addListener(name: String, listener: (ObservableValue<out T>, T, T) -> Unit) {
-    (ListenerTracker.listeners[name] as? ChangeListener<T>)?.let { removeListener(it) }
+    removeListener(name)
     val changeListener = ChangeListener(listener)
     ListenerTracker.listeners[name] = changeListener
     addListener(changeListener)
@@ -112,6 +120,14 @@ fun ObservableValue<*>.listenDebounced(ms: Long, listener: () -> Unit) {
 }
 
 /**
+ * Removes a listener with a given name
+ */
+@Suppress("UNCHECKED_CAST")
+fun <T> ObservableList<T>.removeListener(name: String) {
+    (ListenerTracker.listListeners[name] as? ListChangeListener<T>)?.let { removeListener(it) }
+}
+
+/**
  * Extension function for adding a list listener with a given name, guaranteed to have only one listener
  * per name.
  *
@@ -120,7 +136,7 @@ fun ObservableValue<*>.listenDebounced(ms: Long, listener: () -> Unit) {
  */
 @Suppress("UNCHECKED_CAST")
 fun <T> ObservableList<T>.addListener(name: String, listener: (ListChangeListener.Change<out T>) -> Unit) {
-    (ListenerTracker.listListeners[name] as? ListChangeListener<T>)?.let { removeListener(it) }
+    removeListener(name)
     val changeListener = ListChangeListener(listener)
     ListenerTracker.listListeners[name] = changeListener
     addListener(changeListener)
