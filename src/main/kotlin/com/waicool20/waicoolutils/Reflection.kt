@@ -45,12 +45,19 @@ import kotlin.reflect.jvm.jvmErasure
 fun String.toObject(clazz: Class<*>): Any? {
     return when (clazz) {
         Boolean::class.javaObjectType -> toBoolean()
+        Boolean::class.javaPrimitiveType -> toBoolean()
         Byte::class.javaObjectType -> toByteOrNull()
+        Byte::class.javaPrimitiveType -> toByteOrNull()
         Short::class.javaObjectType -> toShortOrNull()
+        Short::class.javaPrimitiveType -> toShortOrNull()
         Int::class.javaObjectType -> toIntOrNull()
+        Int::class.javaPrimitiveType -> toIntOrNull()
         Long::class.javaObjectType -> toLongOrNull()
+        Long::class.javaPrimitiveType -> toLongOrNull()
         Float::class.javaObjectType -> toFloatOrNull()
+        Float::class.javaPrimitiveType -> toFloatOrNull()
         Double::class.javaObjectType -> toDoubleOrNull()
+        Double::class.javaPrimitiveType -> toDoubleOrNull()
         else -> this
     }
 }
