@@ -25,6 +25,22 @@
 package com.waicool20.waicoolutils
 
 /**
+ * Annotation showing a dependency on Kotlin Coroutines library
+ *
+ * @see <a href="https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core">Kotlin Coroutines</a>
+ */
+@MustBeDocumented
+annotation class RequiresKotlinCoroutines
+
+/**
+ * Annotation showing a dependency on TornadoFX library
+ *
+ * @see <a href="https://mvnrepository.com/artifact/no.tornado/tornadofx">TornadoFX</a>
+ */
+@MustBeDocumented
+annotation class RequiresTornadoFX
+
+/**
  * Annotation showing a dependency on ControlsFX library
  *
  * @see <a href="https://mvnrepository.com/artifact/org.controlsfx">ControlsFX</a>
