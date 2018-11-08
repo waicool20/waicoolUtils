@@ -40,3 +40,20 @@ suspend inline fun <T, C : MutableCollection<in T>> Iterable<T>.filterToAsync(de
     jobs.forEach { it.join() }
     return destination
 }
+
+@RequiresKotlinCoroutines
+suspend inline fun <T, R> Iterable<T>.mapAsync(coroutineScope: CoroutineScope = GlobalScope, crossinline transform: (T) -> R): List<R> {
+    return mapToAsync(ArrayList(), coroutineScope, transform)
+}
+
+@RequiresKotlinCoroutines
+suspend inline fun <T, R, C : MutableCollection<in R>> Iterable<T>.mapToAsync(destination: C, coroutineScope: CoroutineScope = GlobalScope, crossinline transform: (T) -> R): C {
+    val jobs = mutableListOf<Job>()
+    for (item in this) {
+        jobs += coroutineScope.launch {
+            destination.add(transform(item))
+        }
+    }
+    jobs.forEach { it.join() }
+    return destination
+}
