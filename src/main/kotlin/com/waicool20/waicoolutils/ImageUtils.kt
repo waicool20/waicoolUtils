@@ -75,3 +75,26 @@ fun BufferedImage.binarizeImage(threshold: Double = 0.4) = apply {
  * @return Relative luminance
  */
 fun Color.relativeLuminance() = (0.2126 * red + 0.7152 * green + 0.0722 * blue) / 255
+
+
+/**
+ * Pads an image with given pixel amount on both sides
+ *
+ * @param pixelW Amount of pixels to pad the image on the left and right side
+ * @param pixelH Amount of pixels to pad the image on the top and bottom side
+ * @param color Color to fill the padded region with, Translucent if null (Default)
+ */
+fun BufferedImage.pad(pixelW: Int, pixelH: Int, color: Color? = null): BufferedImage {
+    val newW = width + pixelW
+    val newH = height + pixelH
+    val image = BufferedImage(newW, newH, type)
+    (image.graphics as Graphics2D).apply {
+        if (color != null) {
+            paint = color
+            fillRect(0, 0, newW, newH)
+        }
+        drawImage(this@pad, pixelW / 2, pixelH / 2, width, height, null)
+        dispose()
+    }
+    return image
+}
