@@ -20,57 +20,113 @@
 package com.waicool20.waicoolutils
 
 operator fun StringBuilder.plusAssign(value: StringBuffer?) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: CharSequence?) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: String?) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: Any?) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: StringBuilder?) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: CharArray) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: Char) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: Boolean) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: Int) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: Short) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: Byte) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: Long) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: Float) {
-    appendln(value)
+    append(value)
 }
 
 operator fun StringBuilder.plusAssign(value: Double) {
+    append(value)
+}
+
+operator fun StringBuilder.divAssign(value: StringBuffer?) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: CharSequence?) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: String?) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: Any?) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: StringBuilder?) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: CharArray) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: Char) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: Boolean) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: Int) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: Short) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: Byte) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: Long) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: Float) {
+    appendln(value)
+}
+
+operator fun StringBuilder.divAssign(value: Double) {
     appendln(value)
 }
