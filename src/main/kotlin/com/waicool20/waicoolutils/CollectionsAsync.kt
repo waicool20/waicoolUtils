@@ -23,10 +23,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import java.util.*
 
 @RequiresKotlinCoroutines
 suspend inline fun <T> Iterable<T>.filterAsync(coroutineScope: CoroutineScope = GlobalScope, crossinline predicate: (T) -> Boolean): List<T> {
-    return filterToAsync(ArrayList(), coroutineScope, predicate)
+    return filterToAsync(Collections.synchronizedList<T>(ArrayList()), coroutineScope, predicate)
 }
 
 @RequiresKotlinCoroutines
@@ -43,7 +44,7 @@ suspend inline fun <T, C : MutableCollection<in T>> Iterable<T>.filterToAsync(de
 
 @RequiresKotlinCoroutines
 suspend inline fun <T, R> Iterable<T>.mapAsync(coroutineScope: CoroutineScope = GlobalScope, crossinline transform: (T) -> R): List<R> {
-    return mapToAsync(ArrayList(), coroutineScope, transform)
+    return mapToAsync(Collections.synchronizedList<R>(ArrayList()), coroutineScope, transform)
 }
 
 @RequiresKotlinCoroutines
