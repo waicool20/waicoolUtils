@@ -33,14 +33,34 @@ object DesktopUtils {
     } else null
 
     fun browse(uri: URI) {
-        thread { desktop?.browse(uri) }
+        thread {
+            try {
+                desktop?.browse(uri)
+            } catch (e: Exception) {
+                if (OS.isLinux()) {
+                    ProcessBuilder("xdg-open", "$uri").start()
+                } else {
+                    throw e
+                }
+            }
+        }
     }
 
     fun browse(uri: String) = browse(URI(uri))
     fun browse(url: URL) = browse(url.toURI())
 
     fun open(file: File) {
-        thread { desktop?.open(file) }
+        thread {
+            try {
+                desktop?.open(file)
+            } catch (e: Exception) {
+                if (OS.isLinux()) {
+                    ProcessBuilder("xdg-open", file.absolutePath).start()
+                } else {
+                    throw e
+                }
+            }
+        }
     }
 
     fun open(file: Path) = open(file.toFile())
