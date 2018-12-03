@@ -19,8 +19,6 @@
 
 package com.waicool20.waicoolutils
 
-import kotlin.math.roundToInt
-
 /**
  * Splits a target string based on a reference string on its character groups eg. AB123!@ will be
  * split to [AB, 123, !@]
@@ -28,7 +26,7 @@ import kotlin.math.roundToInt
  * @return List of Pairs where first element is the reference string group and second is the target
  * string group
  */
-fun String.splitOtherCharacterGroups(target: String) : List<Pair<String, String>> {
+fun String.splitOtherCharacterGroups(target: String): List<Pair<String, String>> {
     val referenceGroups = split(Regex("(?<=\\w)(?=\\W)|(?<=\\d)(?=\\D)|(?=\\d)(?<=\\D)"))
     val targetGroups = ArrayList<String>(referenceGroups.size)
     referenceGroups.fold(0) { i, str ->
@@ -43,32 +41,31 @@ fun String.splitOtherCharacterGroups(target: String) : List<Pair<String, String>
  * @param other String to calculate the distance to
  * @param weights Optional map where the key contains string of similar characters and value
  * contains the weight (0.0 - 1.0)
- * @param weightFactor Factor of weight, eg. 100 allows granularity down to 0.01 (Default: 100)
  */
-fun String.distanceTo(other: String, weights: Map<String, Double> = emptyMap(), weightFactor: Int = 100): Double {
+fun String.distanceTo(other: String, weights: Map<String, Double> = emptyMap()): Double {
     when {
         this == other -> return 0.0
         this.isBlank() -> return other.length.toDouble()
         other.isBlank() -> return length.toDouble()
     }
 
-    val pDistance = IntArray(other.length + 1) { it }
-    val cDistance = IntArray(other.length + 1)
+    val pDistance = DoubleArray(other.length + 1) { it.toDouble() }
+    val cDistance = DoubleArray(other.length + 1)
 
     forEachIndexed { i, char ->
-        cDistance[0] = i + 1
+        cDistance[0] = i + 1.0
         other.forEachIndexed { j, otherChar ->
-            val deleteCost = pDistance[j + 1] + (1 * weightFactor)
-            val insertCost = cDistance[j] + (1 * weightFactor)
+            val deleteCost = pDistance[j + 1] + (1)
+            val insertCost = cDistance[j] + (1)
             val subCost = pDistance[j] + if (char == otherChar) {
-                0
+                0.0
             } else {
-                ((weights.keys.find { it.contains(char) && it.contains(otherChar) }?.let { weights[it] }
-                        ?: 1.0) * weightFactor).roundToInt()
+                weights.keys.find { it.contains(char) && it.contains(otherChar) }
+                        ?.let { weights[it] } ?: 1.0
             }
             cDistance[j + 1] = minOf(deleteCost, insertCost, subCost)
         }
         for (k in 0..other.length) pDistance[k] = cDistance[k]
     }
-    return cDistance[other.length].toDouble() / weightFactor
+    return cDistance[other.length]
 }
