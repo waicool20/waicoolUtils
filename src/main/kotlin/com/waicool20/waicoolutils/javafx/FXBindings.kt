@@ -43,6 +43,9 @@ fun DoubleBinding.persist() = also { Bindings.anyBinding.add(this) }
 fun Spinner<Int>.bind(integerProperty: IntegerProperty, readOnly: Boolean = false) =
         bind(valueFactory.valueProperty(), integerProperty.asObject(), readOnly)
 
+fun Spinner<Long>.bind(longProperty: LongProperty, readOnly: Boolean = false) =
+        bind(valueFactory.valueProperty(), longProperty.asObject(), readOnly)
+
 fun Spinner<Float>.bind(floatProperty: FloatProperty, readOnly: Boolean = false) =
         bind(valueFactory.valueProperty(), floatProperty.asObject(), readOnly)
 
@@ -51,6 +54,9 @@ fun Spinner<Double>.bind(doubleProperty: DoubleProperty, readOnly: Boolean = fal
 
 fun ComboBox<Int>.bind(integerProperty: IntegerProperty, readOnly: Boolean = false) =
         bind(valueProperty(), integerProperty.asObject(), readOnly)
+
+fun ComboBox<Long>.bind(longProperty: LongProperty, readOnly: Boolean = false) =
+        bind(valueProperty(), longProperty.asObject(), readOnly)
 
 fun ComboBox<Float>.bind(floatProperty: FloatProperty, readOnly: Boolean = false) =
         bind(valueProperty(), floatProperty.asObject(), readOnly)
