@@ -22,6 +22,8 @@ package com.waicool20.waicoolutils.javafx
 import com.waicool20.waicoolutils.RequiresTornadoFX
 import javafx.scene.control.SpinnerValueFactory
 import tornadofx.*
+import kotlin.math.max
+import kotlin.math.min
 
 @RequiresTornadoFX
 class LongSpinnerValueFactory(
@@ -37,6 +39,10 @@ class LongSpinnerValueFactory(
     var min by minProperty
     var max by maxProperty
     var amountToStepBy by amountToStepByProperty
+
+    init {
+        value = min(max, max(min, initialValue))
+    }
 
     override fun increment(steps: Int) {
         val newIndex = value + steps * amountToStepBy
