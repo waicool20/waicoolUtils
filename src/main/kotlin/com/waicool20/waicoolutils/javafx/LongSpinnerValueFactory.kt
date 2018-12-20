@@ -21,6 +21,7 @@ package com.waicool20.waicoolutils.javafx
 
 import com.waicool20.waicoolutils.RequiresTornadoFX
 import javafx.scene.control.SpinnerValueFactory
+import javafx.util.StringConverter
 import tornadofx.*
 import kotlin.math.max
 import kotlin.math.min
@@ -41,7 +42,14 @@ class LongSpinnerValueFactory(
     var amountToStepBy by amountToStepByProperty
 
     init {
-        value = min(max, max(min, initialValue))
+        valueProperty().addListener { _, _, newVal ->
+            min(max, max(min, newVal))
+        }
+        converter = object : StringConverter<Long>() {
+            override fun fromString(s: String) = s.toLongOrNull()
+            override fun toString(l: Long) = l.toString()
+        }
+        value = initialValue
     }
 
     override fun increment(steps: Int) {
