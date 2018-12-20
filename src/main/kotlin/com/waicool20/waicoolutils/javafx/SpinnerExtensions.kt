@@ -47,7 +47,7 @@ private val spinnerWraps = mutableMapOf<Spinner<*>, Boolean>()
  */
 fun <T> Spinner<T>.updateOtherSpinnerOnWrap(spinner: Spinner<T>, min: T, max: T) {
     spinnerWraps.putIfAbsent(this, false)
-    addEventHandler(MouseEvent.ANY, { event ->
+    addEventHandler(MouseEvent.ANY) { event ->
         if (event.eventType == MouseEvent.MOUSE_PRESSED ||
                 event.eventType == MouseEvent.MOUSE_RELEASED) {
             if (event.button == MouseButton.PRIMARY) {
@@ -60,7 +60,7 @@ fun <T> Spinner<T>.updateOtherSpinnerOnWrap(spinner: Spinner<T>, min: T, max: T)
                 }
             }
         }
-    })
+    }
     valueProperty().addListener { _, oldVal, newVal ->
         if (spinnerWraps[this] == true) {
             if (oldVal == max && newVal == min) {
