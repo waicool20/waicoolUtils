@@ -19,42 +19,35 @@
 
 package com.waicool20.waicoolutils
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 import java.util.*
 
 @RequiresKotlinCoroutines
-suspend inline fun <T> Iterable<T>.filterAsync(coroutineScope: CoroutineScope = GlobalScope, crossinline predicate: (T) -> Boolean): List<T> {
-    return filterToAsync(Collections.synchronizedList<T>(ArrayList()), coroutineScope, predicate)
+suspend inline fun <T> Iterable<T>.filterAsync(crossinline predicate: (T) -> Boolean): List<T> {
+    return filterToAsync(Collections.synchronizedList<T>(ArrayList()), predicate)
 }
 
 @RequiresKotlinCoroutines
-suspend inline fun <T, C : MutableCollection<in T>> Iterable<T>.filterToAsync(destination: C, coroutineScope: CoroutineScope = GlobalScope, crossinline predicate: (T) -> Boolean): C {
-    val jobs = mutableListOf<Job>()
-    for (element in this) {
-        jobs += coroutineScope.launch {
-            if (predicate(element)) destination.add(element)
+suspend inline fun <T, C : MutableCollection<in T>> Iterable<T>.filterToAsync(destination: C, crossinline predicate: (T) -> Boolean): C {
+    coroutineScope {
+        for (element in this@filterToAsync) {
+            launch { if (predicate(element)) destination.add(element) }
         }
     }
-    jobs.forEach { it.join() }
     return destination
 }
 
 @RequiresKotlinCoroutines
-suspend inline fun <T, R> Iterable<T>.mapAsync(coroutineScope: CoroutineScope = GlobalScope, crossinline transform: (T) -> R): List<R> {
-    return mapToAsync(Collections.synchronizedList<R>(ArrayList()), coroutineScope, transform)
+suspend inline fun <T, R> Iterable<T>.mapAsync(crossinline transform: (T) -> R): List<R> {
+    return mapToAsync(Collections.synchronizedList<R>(ArrayList()), transform)
 }
 
 @RequiresKotlinCoroutines
-suspend inline fun <T, R, C : MutableCollection<in R>> Iterable<T>.mapToAsync(destination: C, coroutineScope: CoroutineScope = GlobalScope, crossinline transform: (T) -> R): C {
-    val jobs = mutableListOf<Job>()
-    for (item in this) {
-        jobs += coroutineScope.launch {
-            destination.add(transform(item))
+suspend inline fun <T, R, C : MutableCollection<in R>> Iterable<T>.mapToAsync(destination: C, crossinline transform: (T) -> R): C {
+    coroutineScope {
+        for (item in this@mapToAsync) {
+            launch { destination.add(transform(item)) }
         }
     }
-    jobs.forEach { it.join() }
     return destination
 }
