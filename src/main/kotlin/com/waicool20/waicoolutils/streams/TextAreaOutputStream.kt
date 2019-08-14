@@ -34,16 +34,23 @@ import java.io.OutputStream
  * @param textArea TextArea to write to
  * @param maxLines Maximum lines to show in the text area
  */
-class TextAreaOutputStream(private val textArea: TextArea, private val maxLines: Int = 1000) : LineBufferedOutputStream() {
+class TextAreaOutputStream(
+        private val textArea: TextArea,
+        private val maxLines: Int = 1000
+) : LineBufferedOutputStream() {
+    private var lineCount = 0
+
     override fun writeLine(line: String) {
+        if (line.isEmpty()) return
         runLater {
             if (line.contains("\u001b[2J\u001b[H")) {
                 textArea.clear()
+                lineCount = 0
                 return@runLater
             }
-            if (textArea.text.count { it == '\n' } >= maxLines) {
+            if (lineCount >= maxLines) {
                 textArea.deleteText(0, textArea.text.indexOf('\n') + 1)
-            }
+            } else lineCount++
             textArea.appendText(line.replace(Regex("\\u001b\\[.+?m"), ""))
         }
     }
