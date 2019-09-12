@@ -23,8 +23,8 @@
  */
 
 buildscript {
-    ext.kotlin_version = '1.3.41'
-    ext.kotlin_coroutines_version = '1.3.0-M2'
+    ext.kotlin_version = '1.3.50'
+    ext.kotlin_coroutines_version = '1.3.0'
     ext.jackson_version = '2.9.9'
     ext.controlsfx_version = '8.40.14'
     ext.logback_version = '1.2.3'
