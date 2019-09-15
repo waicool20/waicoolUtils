@@ -40,7 +40,7 @@ import kotlin.math.roundToInt
 fun BufferedImage.scale(scaleFactor: Double = 2.0): BufferedImage {
     val w = (width * scaleFactor).roundToInt()
     val h = (height * scaleFactor).roundToInt()
-    val image = BufferedImage(w, h, type)
+    val image = createCompatibleCopy(w, h)
     (image.graphics as Graphics2D).apply {
         setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR)
         drawImage(this@scale, 0, 0, w, h, null)
@@ -87,7 +87,7 @@ fun Color.relativeLuminance() = (0.2126 * red + 0.7152 * green + 0.0722 * blue) 
 fun BufferedImage.pad(pixelW: Int, pixelH: Int, color: Color? = null): BufferedImage {
     val newW = width + pixelW
     val newH = height + pixelH
-    val image = BufferedImage(newW, newH, type)
+    val image = createCompatibleCopy(newW, newH)
     (image.graphics as Graphics2D).apply {
         if (color != null) {
             paint = color
@@ -97,4 +97,23 @@ fun BufferedImage.pad(pixelW: Int, pixelH: Int, color: Color? = null): BufferedI
         dispose()
     }
     return image
+}
+
+/**
+ * Creates a new buffered image with the same attributes but different width and height
+ * Use this for custom type buffered images
+ *
+ * @param width Width of new buffered image, defaults to original width
+ * @param height Height of new buffered image, defaults to original height
+ */
+fun BufferedImage.createCompatibleCopy(
+        width: Int = this.width,
+        height: Int = this.height
+): BufferedImage {
+    return BufferedImage(
+            colorModel,
+            raster.createCompatibleWritableRaster(width, height),
+            isAlphaPremultiplied,
+            null
+    )
 }
