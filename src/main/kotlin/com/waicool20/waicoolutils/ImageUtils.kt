@@ -27,7 +27,8 @@ package com.waicool20.waicoolutils
 import java.awt.Color
 import java.awt.Graphics2D
 import java.awt.RenderingHints
-import java.awt.image.BufferedImage
+import java.awt.color.ColorSpace
+import java.awt.image.*
 import kotlin.math.roundToInt
 
 /**
@@ -116,4 +117,20 @@ fun BufferedImage.createCompatibleCopy(
             isAlphaPremultiplied,
             null
     )
+}
+
+object ImageUtils {
+    fun createByteRGBBufferedImage(width: Int, height: Int, hasAlpha: Boolean = false): BufferedImage {
+        val cs = ColorSpace.getInstance(ColorSpace.CS_sRGB)
+        val cm: ColorModel
+        val raster: WritableRaster
+        if (hasAlpha) {
+            cm = ComponentColorModel(cs, true, false, ColorModel.TRANSLUCENT, DataBuffer.TYPE_BYTE)
+            raster = Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE, width, height, 4, null)
+        } else {
+            cm = ComponentColorModel(cs, false, false, ColorModel.TRANSLUCENT, DataBuffer.TYPE_BYTE)
+            raster = Raster.createInterleavedRaster(DataBuffer.TYPE_BYTE, width, height, 3, null)
+        }
+        return BufferedImage(cm, raster, false, null)
+    }
 }
