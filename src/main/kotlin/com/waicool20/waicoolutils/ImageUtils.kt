@@ -71,6 +71,22 @@ fun BufferedImage.binarizeImage(threshold: Double = 0.4) = apply {
 }
 
 /**
+ * Counts the given color in the image
+ *
+ * @param color Color to count
+ * @return Number of times this color appeared
+ */
+fun BufferedImage.countColor(color: Color) = run {
+    var count = 0
+    for(x in 0 until width) {
+        for (y in 0 until height) {
+            if (getRGB(x, y) == color.rgb) count ++
+        }
+    }
+    count
+}
+
+/**
  * Gets the relative luminance of a color
  *
  * @return Relative luminance
