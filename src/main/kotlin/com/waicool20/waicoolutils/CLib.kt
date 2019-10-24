@@ -27,7 +27,7 @@ object CLib {
         private interface _Locale: Library {
             fun setlocale(category: Int, locale: String): String
         }
-        private val INSTANCE = Native.loadLibrary(if (OS.isWindows()) "msvcrt" else "c", _Locale::class.java) as _Locale
+        private val INSTANCE = Native.load(if (OS.isWindows()) "msvcrt" else "c", _Locale::class.java) as _Locale
 
         const val LC_CTYPE = 0
         const val LC_NUMERIC = 1
