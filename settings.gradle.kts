@@ -22,5 +22,5 @@
  * THE SOFTWARE.
  */
 
-rootProject.name = 'waicoolUtils'
+rootProject.name = "waicoolUtils"
 
