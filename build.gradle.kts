@@ -27,7 +27,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm")
+    kotlin("jvm") version "1.3.50"
 }
 
 group = "com.waicool20"
