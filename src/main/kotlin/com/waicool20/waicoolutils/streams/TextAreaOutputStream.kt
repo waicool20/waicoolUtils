@@ -48,6 +48,9 @@ class TextAreaOutputStream(
                 lineCount = 0
                 return@runLater
             }
+            // Reset line count if text area was cleared by outside code that called
+            // textArea.clear()
+            if (textArea.text.isEmpty()) lineCount = 0
             if (lineCount >= maxLines) {
                 textArea.deleteText(0, textArea.text.indexOf('\n') + 1)
             } else lineCount++
