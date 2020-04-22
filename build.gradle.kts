@@ -27,7 +27,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm") version "1.3.50"
+    kotlin("jvm") version "1.3.72"
 }
 
 group = "com.waicool20"
@@ -41,8 +41,8 @@ repositories {
 dependencies {
     val versions = object {
         val Kotlin by lazy { plugins.getPlugin(KotlinPluginWrapper::class).kotlinPluginVersion }
-        val KotlinCoroutines = "1.3.0"
-        val Jackson = "2.9.9"
+        val KotlinCoroutines = "1.3.5"
+        val Jackson = "2.10.1"
         val TornadoFx = "1.7.19"
         val ControlsFx = "8.40.14"
         val Logback = "1.2.3"
