@@ -23,12 +23,14 @@ import com.sun.jna.Library
 import com.sun.jna.Native
 
 object CLib {
-    object Locale {
-        private interface _Locale: Library {
-            fun setlocale(category: Int, locale: String): String
-        }
-        private val INSTANCE = Native.load(if (OS.isWindows()) "msvcrt" else "c", _Locale::class.java) as _Locale
+    private interface StdLib : Library {
+        fun setlocale(category: Int, locale: String): String
+        fun setenv(name: String, value: String, overwrite: Int): Int
+    }
 
+    private val INSTANCE = Native.load(if (OS.isWindows()) "msvcrt" else "c", StdLib::class.java) as StdLib
+
+    object Locale {
         const val LC_CTYPE = 0
         const val LC_NUMERIC = 1
         const val LC_TIME = 2
@@ -45,4 +47,6 @@ object CLib {
 
         fun setLocale(category: Int, locale: String): String = INSTANCE.setlocale(category, locale)
     }
+
+    fun setEnv(name: String, value: String, overwrite: Boolean = true) = INSTANCE.setenv(name, value, if (overwrite) 1 else 0)
 }
