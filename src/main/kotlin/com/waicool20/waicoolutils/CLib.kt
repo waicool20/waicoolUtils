@@ -26,6 +26,7 @@ object CLib {
     private interface StdLib : Library {
         fun setlocale(category: Int, locale: String): String
         fun setenv(name: String, value: String, overwrite: Int): Int
+        fun _putenv(env: String): Int
     }
 
     private val INSTANCE = Native.load(if (OS.isWindows()) "msvcrt" else "c", StdLib::class.java) as StdLib
@@ -48,5 +49,11 @@ object CLib {
         fun setLocale(category: Int, locale: String): String = INSTANCE.setlocale(category, locale)
     }
 
-    fun setEnv(name: String, value: String, overwrite: Boolean = true) = INSTANCE.setenv(name, value, if (overwrite) 1 else 0)
+    fun setEnv(name: String, value: String, overwrite: Boolean = true) {
+        if (OS.isWindows()) {
+            INSTANCE._putenv("$name=$value")
+        } else {
+            INSTANCE.setenv(name, value, if (overwrite) 1 else 0)
+        }
+    }
 }
