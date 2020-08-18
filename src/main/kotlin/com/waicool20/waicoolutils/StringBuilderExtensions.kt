@@ -76,57 +76,57 @@ operator fun StringBuilder.plusAssign(value: Double) {
 }
 
 operator fun StringBuilder.divAssign(value: StringBuffer?) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: CharSequence?) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: String?) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: Any?) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: StringBuilder?) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: CharArray) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: Char) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: Boolean) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: Int) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: Short) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: Byte) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: Long) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: Float) {
-    appendln(value)
+    appendLine(value)
 }
 
 operator fun StringBuilder.divAssign(value: Double) {
-    appendln(value)
+    appendLine(value)
 }

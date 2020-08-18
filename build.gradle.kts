@@ -27,7 +27,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     java
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.0"
 }
 
 group = "com.waicool20"
@@ -41,7 +41,7 @@ repositories {
 dependencies {
     val versions = object {
         val Kotlin by lazy { plugins.getPlugin(KotlinPluginWrapper::class).kotlinPluginVersion }
-        val KotlinCoroutines = "1.3.5"
+        val KotlinCoroutines = "1.3.9"
         val Jackson = "2.10.1"
         val TornadoFx = "1.7.19"
         val ControlsFx = "8.40.14"
@@ -50,7 +50,6 @@ dependencies {
         val JNA = "5.4.0"
     }
 
-    implementation("org.jetbrains.kotlin", "kotlin-stdlib-jdk8", versions.Kotlin)
     implementation("org.jetbrains.kotlin", "kotlin-reflect", versions.Kotlin)
 
     /* Coroutines */
