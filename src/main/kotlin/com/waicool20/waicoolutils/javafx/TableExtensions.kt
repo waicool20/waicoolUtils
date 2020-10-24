@@ -24,7 +24,6 @@
 
 package com.waicool20.waicoolutils.javafx
 
-import com.sun.javafx.scene.control.skin.TableHeaderRow
 import javafx.collections.ListChangeListener
 import javafx.scene.control.TableColumn
 import javafx.scene.control.TableView
@@ -39,16 +38,6 @@ fun TableView<*>.lockColumnWidths() {
         }
     })
     columns.forEach { it.isResizable = false }
-}
-
-/**
- * Disable the table header from moving
- */
-fun TableView<*>.disableHeaderMoving() {
-    widthProperty().listen {
-        val row = lookup("TableHeaderRow") as TableHeaderRow
-        row.reorderingProperty().listen { row.isReordering = false }
-    }
 }
 
 /**

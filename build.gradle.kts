@@ -43,8 +43,8 @@ dependencies {
         val Kotlin by lazy { plugins.getPlugin(KotlinPluginWrapper::class).kotlinPluginVersion }
         val KotlinCoroutines = "1.3.9"
         val Jackson = "2.10.1"
-        val TornadoFx = "1.7.19"
-        val ControlsFx = "8.40.14"
+        val TornadoFx = "2.0.0-SNAPSHOT"
+        val ControlsFx = "11.0.2"
         val Logback = "1.2.3"
         val SikuliX = "1.1.3-SNAPSHOT"
         val JNA = "5.4.0"
