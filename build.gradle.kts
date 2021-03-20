@@ -55,6 +55,7 @@ dependencies {
         val JNA = "5.4.0"
     }
 
+    implementation(kotlin("stdlib-jdk8"))
     implementation("org.jetbrains.kotlin", "kotlin-reflect", versions.Kotlin)
 
     /* Coroutines */
