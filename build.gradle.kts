@@ -26,8 +26,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    java
-    kotlin("jvm") version "1.4.20"
+    kotlin("jvm") version "1.5.0"
     id("org.openjfx.javafxplugin") version "0.0.8"
 }
 
@@ -47,16 +46,16 @@ javafx {
 dependencies {
     val versions = object {
         val Kotlin by lazy { plugins.getPlugin(KotlinPluginWrapper::class).kotlinPluginVersion }
-        val KotlinCoroutines = "1.4.2"
-        val Jackson = "2.10.1"
+        val KotlinCoroutines = "1.5.0-RC"
+        val Jackson = "2.12.3"
         val TornadoFx = "2.0.0-SNAPSHOT"
-        val ControlsFx = "11.0.2"
+        val ControlsFx = "11.1.0"
         val Logback = "1.2.3"
         val JNA = "5.4.0"
     }
 
     implementation(kotlin("stdlib-jdk8"))
-    implementation("org.jetbrains.kotlin", "kotlin-reflect", versions.Kotlin)
+    implementation(kotlin("reflect"))
 
     /* Coroutines */
     implementation("org.jetbrains.kotlinx", "kotlinx-coroutines-core", versions.KotlinCoroutines)

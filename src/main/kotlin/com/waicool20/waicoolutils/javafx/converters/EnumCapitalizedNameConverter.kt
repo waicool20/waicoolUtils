@@ -31,6 +31,8 @@ import javafx.util.StringConverter
  * Replaces underscores with space and capitalizes the first letter only
  */
 class EnumCapitalizedNameConverter<T : Enum<*>> : StringConverter<T>() {
-    override fun toString(e: T) = e.toString().replace("_", " ").toLowerCase().capitalize()
+    override fun toString(e: T) = e.toString().replace("_", " ").lowercase()
+        .replaceFirstChar { if (it.isLowerCase()) it.titlecase() else it.toString() }
+
     override fun fromString(string: String): T? = null
 }

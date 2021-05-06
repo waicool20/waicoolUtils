@@ -137,21 +137,21 @@ object OS {
      *
      * @return True if system is running a Windows OS.
      */
-    fun isWindows() = System.getProperty("os.name").toLowerCase().contains("win")
+    fun isWindows() = System.getProperty("os.name").lowercase().contains("win")
 
     /**
      * Linux system check.
      *
      * @return True if system is running a Linux distro.
      */
-    fun isLinux() = System.getProperty("os.name").toLowerCase().contains("linux")
+    fun isLinux() = System.getProperty("os.name").lowercase().contains("linux")
 
     /**
      * Mac system check.
      *
      * @return True if system is running a version of MacOs.
      */
-    fun isMac() = System.getProperty("os.name").toLowerCase().contains("mac")
+    fun isMac() = System.getProperty("os.name").lowercase().contains("mac")
 
     /**
      * Unix system check.
