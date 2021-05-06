@@ -41,30 +41,36 @@ fun FloatBinding.persist() = also { Bindings.anyBinding.add(this) }
 fun DoubleBinding.persist() = also { Bindings.anyBinding.add(this) }
 
 fun Spinner<Int>.bind(integerProperty: IntegerProperty, readOnly: Boolean = false) =
-        bind(valueFactory.valueProperty(), integerProperty.asObject(), readOnly)
+    bind(valueFactory.valueProperty(), integerProperty.asObject(), readOnly)
 
 fun Spinner<Long>.bind(longProperty: LongProperty, readOnly: Boolean = false) =
-        bind(valueFactory.valueProperty(), longProperty.asObject(), readOnly)
+    bind(valueFactory.valueProperty(), longProperty.asObject(), readOnly)
 
 fun Spinner<Float>.bind(floatProperty: FloatProperty, readOnly: Boolean = false) =
-        bind(valueFactory.valueProperty(), floatProperty.asObject(), readOnly)
+    bind(valueFactory.valueProperty(), floatProperty.asObject(), readOnly)
 
 fun Spinner<Double>.bind(doubleProperty: DoubleProperty, readOnly: Boolean = false) =
-        bind(valueFactory.valueProperty(), doubleProperty.asObject(), readOnly)
+    bind(valueFactory.valueProperty(), doubleProperty.asObject(), readOnly)
 
 fun ComboBox<Int>.bind(integerProperty: IntegerProperty, readOnly: Boolean = false) =
-        bind(valueProperty(), integerProperty.asObject(), readOnly)
+    bind(valueProperty(), integerProperty.asObject(), readOnly)
 
 fun ComboBox<Long>.bind(longProperty: LongProperty, readOnly: Boolean = false) =
-        bind(valueProperty(), longProperty.asObject(), readOnly)
+    bind(valueProperty(), longProperty.asObject(), readOnly)
 
 fun ComboBox<Float>.bind(floatProperty: FloatProperty, readOnly: Boolean = false) =
-        bind(valueProperty(), floatProperty.asObject(), readOnly)
+    bind(valueProperty(), floatProperty.asObject(), readOnly)
 
 fun ComboBox<Double>.bind(doubleProperty: DoubleProperty, readOnly: Boolean = false) =
-        bind(valueProperty(), doubleProperty.asObject(), readOnly)
+    bind(valueProperty(), doubleProperty.asObject(), readOnly)
 
-private fun <T> bind(objectProperty: ObjectProperty<T>, objectProperty1: ObjectProperty<T>, readOnly: Boolean = false) {
-    if (readOnly) objectProperty.bind(objectProperty1) else objectProperty.bindBidirectional(objectProperty1)
+private fun <T> bind(
+    objectProperty: ObjectProperty<T>,
+    objectProperty1: ObjectProperty<T>,
+    readOnly: Boolean = false
+) {
+    if (readOnly) objectProperty.bind(objectProperty1) else objectProperty.bindBidirectional(
+        objectProperty1
+    )
     Bindings.objectBindings.getOrPut(objectProperty) { mutableListOf(objectProperty1) }
 }

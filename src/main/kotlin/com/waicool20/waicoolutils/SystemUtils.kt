@@ -42,7 +42,8 @@ object SystemUtils {
      * @param loadDirectly If true, it will attempt to load the library directly using the absolute
      * path, otherwise it will attempt to modify the `java.library.path` variable and load it by name.
      */
-    fun loadLibrary(path: Path, loadDirectly: Boolean = false) = loadLibrary(listOf(path), loadDirectly)
+    fun loadLibrary(path: Path, loadDirectly: Boolean = false) =
+        loadLibrary(listOf(path), loadDirectly)
 
     /**
      * Loads libraries from a given path.
@@ -79,7 +80,12 @@ object SystemUtils {
     }
 
     private val classLoader by lazy { ClassLoader.getSystemClassLoader() as URLClassLoader }
-    private val loaderMethod by lazy { URLClassLoader::class.java.getDeclaredMethod("addURL", URL::class.java) }
+    private val loaderMethod by lazy {
+        URLClassLoader::class.java.getDeclaredMethod(
+            "addURL",
+            URL::class.java
+        )
+    }
 
     /**
      * Load a Jar library into classpath.

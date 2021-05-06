@@ -52,7 +52,10 @@ fun <T> ObservableValue<T>.removeListener(name: String) {
  * @param listener Listener, receives (ObservableValue, Old Value, New Value)
  */
 @Suppress("UNCHECKED_CAST")
-fun <T> ObservableValue<T>.addListener(name: String, listener: (ObservableValue<out T>, T, T) -> Unit) {
+fun <T> ObservableValue<T>.addListener(
+    name: String,
+    listener: (ObservableValue<out T>, T, T) -> Unit
+) {
     removeListener(name)
     val changeListener = ChangeListener(listener)
     ListenerTracker.listeners[name] = changeListener
@@ -68,7 +71,7 @@ fun <T> ObservableValue<T>.addListener(name: String, listener: (ObservableValue<
  * @param listener Listener, receives (New Value)
  */
 fun <T> ObservableValue<T>.addListener(name: String, listener: (T) -> Unit) =
-        addListener(name) { _, _, newVal -> listener(newVal) }
+    addListener(name) { _, _, newVal -> listener(newVal) }
 
 /**
  * Extension function for adding listener that receives no parameters.
@@ -85,7 +88,11 @@ fun ObservableValue<*>.listen(listener: () -> Unit) = addListener { _, _, _ -> l
  * @param name Unique name of listener
  * @param listener Listener, receives (ObservableValue, Old Value, New Value)
  */
-fun <T> ObservableValue<T>.listenDebounced(ms: Long, name: String, listener: (ObservableValue<out T>, T, T) -> Unit) {
+fun <T> ObservableValue<T>.listenDebounced(
+    ms: Long,
+    name: String,
+    listener: (ObservableValue<out T>, T, T) -> Unit
+) {
     val pause = PauseTransition(Duration.millis(ms.toDouble()))
     addListener(name) { obs, oldVal, newVal ->
         pause.setOnFinished { listener(obs, oldVal, newVal) }
@@ -102,7 +109,7 @@ fun <T> ObservableValue<T>.listenDebounced(ms: Long, name: String, listener: (Ob
  * @param listener Listener, receives (New Value)
  */
 fun <T> ObservableValue<T>.listenDebounced(ms: Long, name: String, listener: (T) -> Unit) =
-        listenDebounced(ms, name) { _, _, newVal -> listener(newVal) }
+    listenDebounced(ms, name) { _, _, newVal -> listener(newVal) }
 
 /**
  * Extension function for adding a debounced listener which only executes after
@@ -135,7 +142,10 @@ fun <T> ObservableList<T>.removeListener(name: String) {
  * @param listener Listener, receives ([ListChangeListener.Change])
  */
 @Suppress("UNCHECKED_CAST")
-fun <T> ObservableList<T>.addListener(name: String, listener: (ListChangeListener.Change<out T>) -> Unit) {
+fun <T> ObservableList<T>.addListener(
+    name: String,
+    listener: (ListChangeListener.Change<out T>) -> Unit
+) {
     removeListener(name)
     val changeListener = ListChangeListener(listener)
     ListenerTracker.listListeners[name] = changeListener

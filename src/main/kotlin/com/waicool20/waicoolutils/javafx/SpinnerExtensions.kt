@@ -38,6 +38,7 @@ import kotlin.math.abs
 
 
 private val spinnerWraps = mutableMapOf<Spinner<*>, Boolean>()
+
 /**
  * Updates another spinners value when this spinners value wraps around
  *
@@ -49,12 +50,14 @@ fun <T> Spinner<T>.updateOtherSpinnerOnWrap(spinner: Spinner<T>, min: T, max: T)
     spinnerWraps.putIfAbsent(this, false)
     addEventHandler(MouseEvent.ANY) { event ->
         if (event.eventType == MouseEvent.MOUSE_PRESSED ||
-                event.eventType == MouseEvent.MOUSE_RELEASED) {
+            event.eventType == MouseEvent.MOUSE_RELEASED
+        ) {
             if (event.button == MouseButton.PRIMARY) {
                 val node = event.target as Node
                 if (node is StackPane && node.getParent() is Spinner<*>) {
                     if (node.styleClass.contains("increment-arrow-button") ||
-                            node.styleClass.contains("decrement-arrow-button")) {
+                        node.styleClass.contains("decrement-arrow-button")
+                    ) {
                         spinnerWraps[this] = event.eventType == MouseEvent.MOUSE_PRESSED
                     }
                 }

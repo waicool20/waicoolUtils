@@ -43,9 +43,11 @@ import javafx.util.StringConverter
  * @param filter Optional filter to determine whether or not a certain item should be shown
  * @param maxRows Maximum rows that should be shown
  */
-class OptionsColumn(title: String = "", var options: List<String>, table: TableView<String>,
-                    var filter: (cell: TableCell<String, String>, string: String) -> Boolean = { _, _ -> true },
-                    var maxRows: Int = Integer.MAX_VALUE) : TableColumn<String, String>(title) {
+class OptionsColumn(
+    title: String = "", var options: List<String>, table: TableView<String>,
+    var filter: (cell: TableCell<String, String>, string: String) -> Boolean = { _, _ -> true },
+    var maxRows: Int = Integer.MAX_VALUE
+) : TableColumn<String, String>(title) {
 
     init {
         val addText = "<Add Item>"

@@ -29,11 +29,11 @@ import javafx.stage.Stage
 
 object AlertFactory {
     private fun alert(
-            type: Alert.AlertType,
-            stage: Stage?,
-            title: String,
-            header: String?,
-            content: String
+        type: Alert.AlertType,
+        stage: Stage?,
+        title: String,
+        header: String?,
+        content: String
     ) = Alert(type).apply {
         this.title = title
         this.headerText = header
@@ -41,21 +41,27 @@ object AlertFactory {
         setOnHidden { stage?.toFront() }
     }
 
-    fun info(stage: Stage? = null,
-             title: String = "Info",
-             header: String? = null,
-             content: String) =
-            alert(Alert.AlertType.INFORMATION, stage, title, header, content)
+    fun info(
+        stage: Stage? = null,
+        title: String = "Info",
+        header: String? = null,
+        content: String
+    ) =
+        alert(Alert.AlertType.INFORMATION, stage, title, header, content)
 
-    fun warn(stage: Stage? = null,
-             title: String = "Warning",
-             header: String? = null,
-             content: String) =
-            alert(Alert.AlertType.WARNING, stage, title, header, content)
+    fun warn(
+        stage: Stage? = null,
+        title: String = "Warning",
+        header: String? = null,
+        content: String
+    ) =
+        alert(Alert.AlertType.WARNING, stage, title, header, content)
 
-    fun error(stage: Stage? = null,
-              title: String = "Error",
-              header: String? = null,
-              content: String) =
-            alert(Alert.AlertType.ERROR, stage, title, header, content)
+    fun error(
+        stage: Stage? = null,
+        title: String = "Error",
+        header: String? = null,
+        content: String
+    ) =
+        alert(Alert.AlertType.ERROR, stage, title, header, content)
 }

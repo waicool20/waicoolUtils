@@ -79,7 +79,7 @@ dependencies {
 
     /* JNA */
     implementation("net.java.dev.jna", "jna", versions.JNA)
-    
+
     /* --- */
     testImplementation("junit", "junit", "4.12")
 }

@@ -38,9 +38,11 @@ class IndexColumn<T>(title: String = "", start: Int = 0) : TableColumn<T, String
         isSortable = false
         setCellFactory {
             TableCell<T, String>().apply {
-                textProperty().bind(javafx.beans.binding.Bindings.`when`(emptyProperty())
+                textProperty().bind(
+                    javafx.beans.binding.Bindings.`when`(emptyProperty())
                         .then("")
-                        .otherwise(indexProperty().add(start).asString()))
+                        .otherwise(indexProperty().add(start).asString())
+                )
             }
         }
     }

@@ -64,19 +64,24 @@ private class FXPropertyFilter : SimpleBeanPropertyFilter() {
     class MixIn
 
     private val filteredTypes = listOf(
-            BooleanProperty::class.java,
-            FloatProperty::class.java,
-            DoubleProperty::class.java,
-            IntegerProperty::class.java,
-            LongProperty::class.java,
-            StringProperty::class.java,
-            ListProperty::class.java,
-            SetProperty::class.java,
-            MapProperty::class.java,
-            ObjectProperty::class.java
+        BooleanProperty::class.java,
+        FloatProperty::class.java,
+        DoubleProperty::class.java,
+        IntegerProperty::class.java,
+        LongProperty::class.java,
+        StringProperty::class.java,
+        ListProperty::class.java,
+        SetProperty::class.java,
+        MapProperty::class.java,
+        ObjectProperty::class.java
     )
 
-    override fun serializeAsField(pojo: Any, jgen: JsonGenerator, provider: SerializerProvider, writer: PropertyWriter) {
+    override fun serializeAsField(
+        pojo: Any,
+        jgen: JsonGenerator,
+        provider: SerializerProvider,
+        writer: PropertyWriter
+    ) {
         if (include(writer)) {
             if (filteredTypes.none { writer.type.isTypeOrSubTypeOf(it) }) {
                 writer.serializeAsField(pojo, jgen, provider)

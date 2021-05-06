@@ -29,7 +29,8 @@ object CLib {
         fun _putenv(env: String): Int
     }
 
-    private val INSTANCE = Native.load(if (OS.isWindows()) "msvcrt" else "c", StdLib::class.java) as StdLib
+    private val INSTANCE =
+        Native.load(if (OS.isWindows()) "msvcrt" else "c", StdLib::class.java) as StdLib
 
     object Locale {
         const val LC_CTYPE = 0

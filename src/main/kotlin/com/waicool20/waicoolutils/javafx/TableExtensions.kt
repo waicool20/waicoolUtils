@@ -47,4 +47,4 @@ fun TableView<*>.lockColumnWidths() {
  * @param ratio Ratio of width
  */
 fun TableColumn<*, *>.setWidthRatio(tableView: TableView<*>, ratio: Double) =
-        prefWidthProperty().bind(tableView.widthProperty().subtract(20).multiply(ratio))
+    prefWidthProperty().bind(tableView.widthProperty().subtract(20).multiply(ratio))

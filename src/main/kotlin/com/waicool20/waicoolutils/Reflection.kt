@@ -191,7 +191,7 @@ fun KType.isEnum() = isSubtypeOf(Enum::class.starProjectedType)
  */
 fun KClass<*>.enumValueOf(string: String): Any? = java.enumConstants.find {
     it.toString().equals(string, true) ||
-            it.toString().equals(string.replace("_", "-"), true)
+        it.toString().equals(string.replace("_", "-"), true)
 }
 
 //</editor-fold>

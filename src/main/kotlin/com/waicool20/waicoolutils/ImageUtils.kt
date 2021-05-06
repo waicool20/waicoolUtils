@@ -43,7 +43,10 @@ fun BufferedImage.scale(scaleFactor: Double = 2.0): BufferedImage {
     val h = (height * scaleFactor).roundToInt()
     val image = createCompatibleCopy(w, h)
     (image.graphics as Graphics2D).apply {
-        setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BILINEAR)
+        setRenderingHint(
+            RenderingHints.KEY_INTERPOLATION,
+            RenderingHints.VALUE_INTERPOLATION_BILINEAR
+        )
         drawImage(this@scale, 0, 0, w, h, null)
         dispose()
     }
@@ -78,9 +81,9 @@ fun BufferedImage.binarizeImage(threshold: Double = 0.4) = apply {
  */
 fun BufferedImage.countColor(color: Color) = run {
     var count = 0
-    for(x in 0 until width) {
+    for (x in 0 until width) {
         for (y in 0 until height) {
-            if (getRGB(x, y) == color.rgb) count ++
+            if (getRGB(x, y) == color.rgb) count++
         }
     }
     count
@@ -124,19 +127,23 @@ fun BufferedImage.pad(pixelW: Int, pixelH: Int, color: Color? = null): BufferedI
  * @param height Height of new buffered image, defaults to original height
  */
 fun BufferedImage.createCompatibleCopy(
-        width: Int = this.width,
-        height: Int = this.height
+    width: Int = this.width,
+    height: Int = this.height
 ): BufferedImage {
     return BufferedImage(
-            colorModel,
-            raster.createCompatibleWritableRaster(width, height),
-            isAlphaPremultiplied,
-            null
+        colorModel,
+        raster.createCompatibleWritableRaster(width, height),
+        isAlphaPremultiplied,
+        null
     )
 }
 
 object ImageUtils {
-    fun createByteRGBBufferedImage(width: Int, height: Int, hasAlpha: Boolean = false): BufferedImage {
+    fun createByteRGBBufferedImage(
+        width: Int,
+        height: Int,
+        hasAlpha: Boolean = false
+    ): BufferedImage {
         val cs = ColorSpace.getInstance(ColorSpace.CS_sRGB)
         val cm: ColorModel
         val raster: WritableRaster

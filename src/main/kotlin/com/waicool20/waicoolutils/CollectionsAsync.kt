@@ -19,7 +19,8 @@
 
 package com.waicool20.waicoolutils
 
-import kotlinx.coroutines.*
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 import java.util.*
 
 @RequiresKotlinCoroutines
@@ -28,7 +29,10 @@ suspend inline fun <T> Iterable<T>.filterAsync(crossinline predicate: (T) -> Boo
 }
 
 @RequiresKotlinCoroutines
-suspend inline fun <T, C : MutableCollection<in T>> Iterable<T>.filterToAsync(destination: C, crossinline predicate: (T) -> Boolean): C {
+suspend inline fun <T, C : MutableCollection<in T>> Iterable<T>.filterToAsync(
+    destination: C,
+    crossinline predicate: (T) -> Boolean
+): C {
     coroutineScope {
         for (element in this@filterToAsync) {
             launch { if (predicate(element)) destination.add(element) }
@@ -43,7 +47,10 @@ suspend inline fun <T, R> Iterable<T>.mapAsync(crossinline transform: (T) -> R):
 }
 
 @RequiresKotlinCoroutines
-suspend inline fun <T, R, C : MutableCollection<in R>> Iterable<T>.mapToAsync(destination: C, crossinline transform: (T) -> R): C {
+suspend inline fun <T, R, C : MutableCollection<in R>> Iterable<T>.mapToAsync(
+    destination: C,
+    crossinline transform: (T) -> R
+): C {
     coroutineScope {
         for (item in this@mapToAsync) {
             launch { destination.add(transform(item)) }

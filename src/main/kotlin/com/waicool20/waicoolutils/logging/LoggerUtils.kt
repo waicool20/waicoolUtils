@@ -43,6 +43,7 @@ object LoggerUtils {
      */
     @RequiresLogback
     fun setLogLevel(level: Level) {
-        (LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME) as ch.qos.logback.classic.Logger).level = level
+        (LoggerFactory.getLogger(ch.qos.logback.classic.Logger.ROOT_LOGGER_NAME) as ch.qos.logback.classic.Logger).level =
+            level
     }
 }

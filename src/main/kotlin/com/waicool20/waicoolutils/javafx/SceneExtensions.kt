@@ -47,7 +47,8 @@ fun ReadOnlyObjectProperty<Scene>.setInitialSizeAsMin() = setInitialSize(null, n
  * @param height Height
  * @param asMinimum Sets this size as the scenes minimum size if true
  */
-fun Parent.setInitialSceneSize(width: Double, height: Double, asMinimum: Boolean) = sceneProperty().setInitialSize(width, height, asMinimum)
+fun Parent.setInitialSceneSize(width: Double, height: Double, asMinimum: Boolean) =
+    sceneProperty().setInitialSize(width, height, asMinimum)
 
 /**
  * Sets the initial scene size of this property
@@ -56,7 +57,11 @@ fun Parent.setInitialSceneSize(width: Double, height: Double, asMinimum: Boolean
  * @param height Height
  * @param asMinimum Sets this size as the scenes minimum size if true
  */
-fun ReadOnlyObjectProperty<Scene>.setInitialSize(width: Double?, height: Double?, asMinimum: Boolean) {
+fun ReadOnlyObjectProperty<Scene>.setInitialSize(
+    width: Double?,
+    height: Double?,
+    asMinimum: Boolean
+) {
     addListener { _, _, newVal ->
         newVal?.windowProperty()?.addListener { _, _, newWindow ->
             newWindow?.addEventFilter(WindowEvent.WINDOW_SHOWN, {

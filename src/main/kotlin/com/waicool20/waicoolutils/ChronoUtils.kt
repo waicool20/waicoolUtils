@@ -51,7 +51,7 @@ object DurationUtils {
     fun parseString(string: String): List<Pair<String, Duration>> {
         return durationRegex.findAll(string).filter { it.value.isNotBlank() }.map {
             val (weekString, dayString,
-                    hourString, minuteString, secondString) = it.destructured
+                hourString, minuteString, secondString) = it.destructured
             val weeks = weekString.toLongOrNull()?.takeIf { it >= 0 } ?: 0
             val days = dayString.toLongOrNull()?.takeIf { it >= 0 } ?: 0
             val hours = hourString.toLongOrNull()?.takeIf { it >= 0 } ?: 0
@@ -66,11 +66,11 @@ object DurationUtils {
      * Constructs a [Duration] object from the given time
      */
     fun of(
-            seconds: Long = 0,
-            minutes: Long = 0,
-            hours: Long = 0,
-            days: Long = 0,
-            weeks: Long = 0
+        seconds: Long = 0,
+        minutes: Long = 0,
+        hours: Long = 0,
+        days: Long = 0,
+        weeks: Long = 0
     ): Duration {
         return Duration.ofSeconds(seconds + (minutes * 60) + (hours * 3600) + (days * 86400) + (weeks * 604800))
     }

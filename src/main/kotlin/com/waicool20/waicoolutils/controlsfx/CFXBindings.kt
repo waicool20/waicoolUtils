@@ -42,11 +42,13 @@ private object CFXBindings {
  */
 @RequiresControlsFX
 fun <T> CheckComboBox<T>.bind(
-        listProperty: ListProperty<T>,
-        readOnly: Boolean = false,
-        onChange: (ListChangeListener.Change<out T>) -> Unit = {}) {
+    listProperty: ListProperty<T>,
+    readOnly: Boolean = false,
+    onChange: (ListChangeListener.Change<out T>) -> Unit = {}
+) {
     unbind()
-    CFXBindings.checkComboBoxBindings[this] = CheckComboBoxBinding(this@bind, listProperty, readOnly, onChange)
+    CFXBindings.checkComboBoxBindings[this] =
+        CheckComboBoxBinding(this@bind, listProperty, readOnly, onChange)
 }
 
 /**
@@ -72,10 +74,10 @@ val CheckComboBox<*>.listBinding: CheckComboBoxBinding<*>?
  */
 @RequiresControlsFX
 class CheckComboBoxBinding<T>(
-        val checkComboBox: CheckComboBox<T>,
-        val listProperty: ListProperty<T>,
-        val readOnly: Boolean,
-        onChange: (ListChangeListener.Change<out T>) -> Unit = {}
+    val checkComboBox: CheckComboBox<T>,
+    val listProperty: ListProperty<T>,
+    val readOnly: Boolean,
+    onChange: (ListChangeListener.Change<out T>) -> Unit = {}
 ) {
     private val boxToListListener: ListChangeListener<T> = ListChangeListener { change ->
         runLater {

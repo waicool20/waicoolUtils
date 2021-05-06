@@ -28,10 +28,10 @@ import kotlin.math.min
 
 @RequiresTornadoFX
 class LongSpinnerValueFactory(
-        min: Long,
-        max: Long,
-        initialValue: Long = min,
-        amountToStepBy: Long = 1
+    min: Long,
+    max: Long,
+    initialValue: Long = min,
+    amountToStepBy: Long = 1
 ) : SpinnerValueFactory<Long>() {
     val minProperty = min.toProperty()
     val maxProperty = max.toProperty()

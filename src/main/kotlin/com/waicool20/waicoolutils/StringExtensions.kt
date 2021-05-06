@@ -61,7 +61,7 @@ fun String.distanceTo(other: String, weights: Map<String, Double> = emptyMap()):
                 0.0
             } else {
                 weights.keys.find { it.contains(char) && it.contains(otherChar) }
-                        ?.let { weights[it] } ?: 1.0
+                    ?.let { weights[it] } ?: 1.0
             }
             cDistance[j + 1] = minOf(deleteCost, insertCost, subCost)
         }

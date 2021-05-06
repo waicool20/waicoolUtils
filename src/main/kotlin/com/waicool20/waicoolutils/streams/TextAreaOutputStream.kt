@@ -35,8 +35,8 @@ import java.io.OutputStream
  * @param maxLines Maximum lines to show in the text area
  */
 class TextAreaOutputStream(
-        private val textArea: TextArea,
-        private val maxLines: Int = 1000
+    private val textArea: TextArea,
+    private val maxLines: Int = 1000
 ) : LineBufferedOutputStream() {
     private var lineCount = 0
 

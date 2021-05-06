@@ -36,7 +36,7 @@ import kotlin.concurrent.thread
  * @param process Process to consume
  * @param autorun Starts consuming immediately 8f true (Default)
  */
-class StreamGobbler(val process: Process?, autorun: Boolean = true): Runnable {
+class StreamGobbler(val process: Process?, autorun: Boolean = true) : Runnable {
     private val latch = CountDownLatch(2)
 
     init {
