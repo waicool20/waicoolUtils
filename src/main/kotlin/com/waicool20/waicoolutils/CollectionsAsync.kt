@@ -19,8 +19,8 @@
 
 package com.waicool20.waicoolutils
 
-import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import kotlinx.coroutines.sync.Mutex
 import java.util.*
 
 @RequiresKotlinCoroutines
@@ -35,7 +35,7 @@ suspend inline fun <T, C : MutableCollection<in T>> Iterable<T>.filterToAsync(
 ): C {
     coroutineScope {
         for (element in this@filterToAsync) {
-            launch { if (predicate(element)) destination.add(element) }
+            launch(Dispatchers.IO) { if (predicate(element)) destination.add(element) }
         }
     }
     return destination
@@ -53,8 +53,34 @@ suspend inline fun <T, R, C : MutableCollection<in R>> Iterable<T>.mapToAsync(
 ): C {
     coroutineScope {
         for (item in this@mapToAsync) {
-            launch { destination.add(transform(item)) }
+            launch(Dispatchers.IO) { destination.add(transform(item)) }
         }
     }
     return destination
+}
+
+suspend inline fun <T> Iterable<T>.firstAsync(
+    crossinline transform: (T) -> Boolean
+): T? {
+    val scope = object : CoroutineScope {
+        override val coroutineContext = Job()
+    }
+    var result: T? = null
+    val mutex = Mutex(true)
+    scope.launch {
+        coroutineScope {
+            for (item in this@firstAsync) {
+                launch(Dispatchers.IO) {
+                    if (transform(item)) {
+                        result = item
+                        if (mutex.isLocked) mutex.unlock()
+                    }
+                }
+            }
+        }
+        if (mutex.isLocked) mutex.unlock()
+    }
+    mutex.lock()
+    scope.cancel()
+    return result
 }
