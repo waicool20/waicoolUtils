@@ -26,7 +26,7 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinPluginWrapper
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.5.0"
+    kotlin("jvm") version "1.5.10"
     id("org.openjfx.javafxplugin") version "0.0.8"
 }
 
