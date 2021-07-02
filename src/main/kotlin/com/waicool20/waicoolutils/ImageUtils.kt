@@ -74,6 +74,20 @@ fun BufferedImage.binarizeImage(threshold: Double = 0.4) = apply {
 }
 
 /**
+ * Inverts the colors of the given [BufferedImage]
+ *
+ * @return Original [BufferedImage] but inverted
+ */
+fun BufferedImage.invert() = apply {
+    for (x in 0 until width) {
+        for (y in 0 until height) {
+            val c = Color(getRGB(x, y), true)
+            setRGB(x, y, Color(255 - c.red, 255 - c.green, 255 - c.blue).rgb)
+        }
+    }
+}
+
+/**
  * Counts the given color in the image
  *
  * @param color Color to count
